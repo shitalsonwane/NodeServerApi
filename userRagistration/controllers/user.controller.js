@@ -1,5 +1,7 @@
 const User=require('../models/user.model.js')
 const validate=require('../models/valiate')
+var jwt = require('jsonwebtoken')
+const bcrypt=require('bcrypt')
 
 exports.create = (req,res) => {
     const { error } = validate.validate(req.body)
@@ -7,7 +9,7 @@ exports.create = (req,res) => {
         return res.status(400).send({
             message: 'ENTER PROPER DATA'
         })
-    }
+    }        
     let user=new User({
         name: req.body.name,
         email: req.body.email,
@@ -39,12 +41,16 @@ exports.login=(req,res) =>{
     .then(user =>{
         if(user==undefined){
             res.status(400).send({
-                message: "UNFEFINED USER"
+                message: "UNDFINED USER"
         })
         }else{
             if(password==user.password){
-                res.status(200).send({
-                    message: "LOGIN SUCCESSFULL"
+                var tocken=jwt.sign(
+                    {email:user.email,
+                    password:user.name},'secrete', {expiresIn:"2h"})
+                    res.status(200).send({
+                    message: "LOGIN SUCCESSFULL",
+                    tocken:tocken
                 }) 
             }else{
                 res.status(400).send({
