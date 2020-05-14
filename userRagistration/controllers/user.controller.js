@@ -10,10 +10,11 @@ exports.create = (req,res) => {
             message: 'ENTER PROPER DATA'
         })
     }        
+    password = bcrypt.hashSync(req.body.password,10)
     let user=new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: password
     })
     user.save()
     .then(data => {
@@ -44,7 +45,8 @@ exports.login=(req,res) =>{
                 message: "UNDFINED USER"
         })
         }else{
-            if(password==user.password){
+            bcrypt.compare(password,user.password,(err,isMatch)=>{
+            if(isMatch){
                 var tocken=jwt.sign(
                     {email:user.email,
                     password:user.name},'secrete', {expiresIn:"2h"})
@@ -57,6 +59,7 @@ exports.login=(req,res) =>{
                 message: "INCURRECT PASSWORD"
                 }) 
             }
+        })
         }
     }).catch(err=>{
         res.status(400).send({
