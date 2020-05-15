@@ -1,7 +1,9 @@
 const express =require('express')
 const bodyparser=require('body-parser')
-const dbConfig=require('./userRagistration/config/database.config')
 const mongoose=require('mongoose')
+require('dotenv').config()
+const dbConfig=process.env.MONGO_DB_URL
+const port=process.env.PORT
 
 const app=express()
 
@@ -12,12 +14,12 @@ app.get('/',(req,res) => {
     res.json({"message":"Welcome to user Ragistration Form"})
 })
 require('./userRagistration/routes/user.routes')(app)
-app.listen(3000,()=>{
-    console.log("Server is listening on port 3000");
+app.listen(port,()=>{
+    console.log("Server is listening on port "+port)
 })
 
 mongoose.Promise=global.Promise
-mongoose.connect(dbConfig.url, {
+mongoose.connect(dbConfig, {
     useNewUrlParser: true
 }).then(() => {
     console.log("Successfully connected to the database");    
