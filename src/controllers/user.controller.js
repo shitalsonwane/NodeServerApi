@@ -6,8 +6,8 @@ const bcrypt=require('bcrypt')
 exports.create = (req,res) => {
     const { error } = validate.validate(req.body)
     if (error) {
-        return res.status(400).send({
-            message: 'ENTER PROPER DATA'
+        return res.status(422).send({
+            message:'ENTER PROPER DATA'
         })
     }        
     let password = bcrypt.hashSync(req.body.password,10)
