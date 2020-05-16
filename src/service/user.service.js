@@ -1,5 +1,5 @@
 const User=require('../models/user.model')
-
+//FOR REGISTER USER
 exports.register=(data,callback)=>{
     User.register(data,(data,err)=>{
         if(data){
@@ -9,6 +9,7 @@ exports.register=(data,callback)=>{
         }
     })
 }
+//FOR LOGIN USER
 exports.login=(email,password,callback)=>{
     User.login(email,password,(result,err)=>{
         if(result){
@@ -18,6 +19,7 @@ exports.login=(email,password,callback)=>{
         }
     })
 }
+//FOR FIND USERS
 exports.findAll=(callback)=>{
     User.findAll((result,err)=>{
         if(result){

@@ -1,6 +1,8 @@
 const mongoose=require('mongoose')
 require('dotenv').config()
 const dbConfig=process.env.MONGO_DB_URL
+
+//DATABASE CONNECTIVITY
 exports.databaseConnection=()=>{
 mongoose.Promise=global.Promise
 mongoose.connect(dbConfig, {

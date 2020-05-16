@@ -17,6 +17,7 @@ const userSchema=mongoose.Schema({
     timestamps:true
 })
 var User= mongoose.model('User', userSchema)
+//SAVE USER DATA
 User.register=function(user,callback){
     user.save()
     .then(data => {
@@ -25,6 +26,7 @@ User.register=function(user,callback){
         callback(err)
     })
 }
+//FIND ALL USER
 User.findAll=function(callback){
     User.find()
     .then(users =>{
@@ -33,6 +35,7 @@ User.findAll=function(callback){
         callback(err)
     })
 }
+//USER LOGIN WITH AUTHENTICATION
 User.login=function(email,password,callback){
     User.findOne({email:email},(err,user)=>{
         if(user==undefined){

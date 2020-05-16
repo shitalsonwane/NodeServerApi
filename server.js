@@ -7,7 +7,7 @@ const app=express()
 
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(bodyparser.json())
-
+//CONNECT TO THE SERVER
 app.get('/',(req,res) => {
     res.json({"message":"Welcome to user Ragistration Form"})
 })

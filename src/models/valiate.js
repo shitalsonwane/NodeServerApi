@@ -1,5 +1,5 @@
 const Joi=require('joi')
-
+//USER INPUT VALIDATION
 function validateUser(user) {
     const schema = {
         name: Joi.string().alphanum().min(3).max(50).required(),
