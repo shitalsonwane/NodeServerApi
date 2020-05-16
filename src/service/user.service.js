@@ -1,0 +1,29 @@
+const User=require('../models/user.model')
+
+exports.register=(data,callback)=>{
+    User.register(data,(data,err)=>{
+        if(data){
+            callback(data)
+        }else{
+            callback(err)
+        }
+    })
+}
+exports.login=(email,password,callback)=>{
+    User.login(email,password,(result,err)=>{
+        if(result){
+            callback(result)
+        }else{
+            callback(err)
+        }
+    })
+}
+exports.findAll=(callback)=>{
+    User.findAll((result,err)=>{
+        if(result){
+            callback(result)
+        }else{
+            callback(err)
+        }
+    })
+}
