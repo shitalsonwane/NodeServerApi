@@ -50,6 +50,16 @@ describe('test case for post users', () => {
             res.body.should.be.a('object')
         })
     })
+    it('it should return exception when the user email already exits', () => {
+        let userInfo={name: 'deepa',email: 'deepa@gmail.com',password: 'deepa123'}
+        chai.request(server)   
+        .post("/user/register")
+        .send(userInfo)
+        .end((err,res) => {
+            res.should.have.status(200)
+            chai.expect(res.body.message).to.equal("E-MAIL EXISTS")
+        })
+    })
 })
 //TEST CASE FOR LOGIN USER
 describe('test cases for login users', () => {

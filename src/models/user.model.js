@@ -19,12 +19,20 @@ const userSchema=mongoose.Schema({
 var User= mongoose.model('User', userSchema)
 //SAVE USER DATA
 User.register=function(user,callback){
-    user.save()
-    .then(data => {
-        callback(data)
-    }).catch(err =>{
-        callback(err)
-    })
+    let email=user.email
+    User.find({email:email},(err,users)=>{
+        if (users.length > 0) {
+            let data={message:"E-MAIL EXISTS"}
+            callback(data)
+        }else{
+            user.save()
+        .then(data => {
+            callback(data)
+        }).catch(err =>{
+            callback(err)
+        })
+        }
+    }) 
 }
 //FIND ALL USER
 User.findAll=function(callback){
