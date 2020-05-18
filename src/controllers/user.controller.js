@@ -2,7 +2,7 @@ const User=require('../models/user.model.js')
 const validate=require('../models/valiate')
 const userService=require('../service/user.service')
 const bcrypt=require('bcrypt')
-//REGISTER NEW USER
+
 exports.create = (req,res) => {
     const { error } = validate.validate(req.body)
     if (error) {
@@ -24,7 +24,6 @@ exports.create = (req,res) => {
         }
     })
 }
-//FIND ALL REGISTERED USER
 exports.findAll=(req,res) => {
     userService.findAll((result,err)=>{
         if(result){
@@ -34,7 +33,6 @@ exports.findAll=(req,res) => {
         }
     })  
 }
-//LOGIN THE REGISTERED USER
 exports.login=(req,res) =>{
     userService.login(req.body.email,req.body.password,(result,err)=>{
         if(result){

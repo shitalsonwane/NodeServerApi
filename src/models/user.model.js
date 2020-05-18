@@ -39,19 +39,19 @@ User.findAll=function(callback){
 User.login=function(email,password,callback){
     User.findOne({email:email},(err,user)=>{
         if(user==undefined){
-            let err={message:"UNDFINED USER"}
-            callback(err)
+            let result={message:"UNDFINED USER"}
+            callback(result)
         }else{
             bcrypt.compare(password,user.password,(err,isMatch)=>{
             if(isMatch){
                 var tocken=jwt.sign(
                     {email:user.email,
-                    password:user.name},'secrete', {expiresIn:"2h"})
-                    let result={meaasge:"LOGIN SUCCESSFULL",tocken:tocken}
+                    name:user.name},'secrete', {expiresIn:"2h"})
+                    let result={message:"LOGIN SUCCESSFULL",tocken:tocken}
                     callback(result)
             }else{
-                let err={message:"INCURRECT PASSWORD"}
-                callback(err)
+                let result={message:"INCURRECT PASSWORD"}
+                callback(result)
             }
         })
         }

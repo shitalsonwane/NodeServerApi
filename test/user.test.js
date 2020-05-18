@@ -4,7 +4,7 @@ const server=require('../server')
 let should = chai.should()
 
 chai.use(chaiHttp)
-
+//TEST CASES FOR POST OR REGISTER USER
 describe('test case for post users', () => {
     //TEST CASE FOR WRONG USER NAME
     it('it should return exception when user name is not proper', () => {
@@ -51,3 +51,40 @@ describe('test case for post users', () => {
         })
     })
 })
+//TEST CASE FOR LOGIN USER
+describe('test cases for login users', () => {
+    //TEST CASE FOR WRONG USER EMAIL
+    it('it should return exception when user email for login is invalid', () => {
+        let userInfo={email:'mail',password:'deepa123'}
+        chai.request(server)
+        .post("/user/login")
+        .send(userInfo)
+        .end((err,res) => {
+            res.should.have.status(200)
+            chai.expect(res.body.message).to.equal("UNDFINED USER")
+        })
+    })
+    //TEST CASE FOR WRONG PASSWORD
+    it('it should return exception when user password for login is invalid', () => {
+        let userInfo={email:'deepa@gmail.com',password:'deepa'}
+        chai.request(server)
+        .post("/user/login")
+        .send(userInfo)
+        .end((err,res) => {
+            res.should.have.status(200)
+            chai.expect(res.body.message).to.equal("INCURRECT PASSWORD")
+        })
+    })
+    //TEST CASE FOR LOGIN WHEN DATA IS VALID
+    it('it should return login when user data for login is valid', () => {
+        let userInfo={email:'rani@gmail.com',password:'rani123'}
+        chai.request(server)
+        .post("/user/login")
+        .send(userInfo)
+        .end((err,res) => {
+            res.should.have.status(200)
+            chai.expect(res.body.message).to.equal("LOGIN SUCCESSFULL")
+        })
+    })
+})
+
