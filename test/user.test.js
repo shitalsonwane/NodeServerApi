@@ -87,4 +87,16 @@ describe('test cases for login users', () => {
         })
     })
 })
+//TEST CASE FOR GET ALL USER
+describe('test cases for get all users', () => {
+    //TEST CASE FOR GET ALL USERS
+    it('it should return array when request to server for get all users', () => {
+        chai.request(server)
+        .get("/user/allusers")
+        .end((err,res) => {
+            res.should.have.status(200)
+            res.body.should.be.a('array')
+        })
+    })
+})
 
